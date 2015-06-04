@@ -111,3 +111,10 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 MEDIA_URL = '/uploads/'
+
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Cardiff Shop Admin',
+    'CONFIRM_UNSAVED_CHANGES': False,
+    'SEARCH_URL': '/admin/products/product/',
+}
