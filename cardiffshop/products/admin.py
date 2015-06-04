@@ -28,17 +28,27 @@ class ProductAdmin(admin.ModelAdmin):
 
     readonly_fields = ("date_created", )
     prepopulated_fields = {"slug": ("name",)}
+    radio_fields = {"campaign": admin.VERTICAL}
 
     fieldsets = (
-        ("Identity", {
+        (None, {
             "fields": ("category", "name", "slug", "description"),
+            "classes": ("suit-tab", "suit-tab-identity",),
         }),
-        ("Price & Campaigns", {
+        (None, {
             "fields": (("price", "price_unit"), "campaign", "campaign_end_date", "damaged"),
+            "classes": ("suit-tab", "suit-tab-price",),
         }),
-        ("Inventory Information", {
+        (None, {
             "fields": ("barcode", "sku_number", "stock_count", "is_visible", "date_created"),
+            "classes": ("suit-tab", "suit-tab-stock",),
         }),
+    )
+
+    suit_form_tabs = (
+        ('identity', 'Identity'),
+        ('price', 'Price'),
+        ('stock', 'Stock')
     )
 
     def can_be_sold(self, obj):
