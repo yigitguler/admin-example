@@ -26,6 +26,21 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ("category", "date_created", CanBeSoldListFilter)
     search_fields = ("name", "description", "sku_number", "barcode")
 
+    readonly_fields = ("date_created", )
+    prepopulated_fields = {"slug": ("name",)}
+
+    fieldsets = (
+        ("Identity", {
+            "fields": ("category", "name", "slug", "description"),
+        }),
+        ("Price & Campaigns", {
+            "fields": (("price", "price_unit"), "campaign", "campaign_end_date", "damaged"),
+        }),
+        ("Inventory Information", {
+            "fields": ("barcode", "sku_number", "stock_count", "is_visible", "date_created"),
+        }),
+    )
+
     def can_be_sold(self, obj):
         """
         Determines whether the product can be sold or not.
